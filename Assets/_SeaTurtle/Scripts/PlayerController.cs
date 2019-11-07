@@ -25,13 +25,18 @@ public class PlayerController : MonoBehaviour
         if(torque == 0){ // stop turning if nothing is being pressed
             rb.AddTorque(new Vector3(0, -rb.angularVelocity.y/2));
         }
-        else if(Mathf.Abs(rb.angularVelocity.y + torque) < maxTorque){
+        else if(Mathf.Abs(rb.angularVelocity.y + torque) < maxTorque){ // turn
             rb.AddTorque(new Vector3(0, Mathf.Min(torque, maxTorque-torque), 0));
         }
 
         Vector3 movement = tf.forward * acceleration * Input.GetAxis("Vertical");
         rb.velocity += movement * Time.deltaTime;
         rb.velocity = Vector3.ClampMagnitude(rb.velocity, maxVelocity);
+
+		// slow the player down to about minVelocity if they're not pressing forward
+		if(Input.GetAxis("Vertical") == 0){
+			rb.velocity *= 0.97f;
+		}
     }
 
     // We'll use this function to allow the player to eat & such
