@@ -223,7 +223,7 @@ MeshCollider:
   m_GameObject: {fileID: 274570604}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Convex: 0
   m_CookingOptions: 14
@@ -396,7 +396,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   acceleration: 4
   maxVelocity: 5
-  maxTorque: 2
+  maxTorqueY: 2
+  maxTorqueZ: 1
 --- !u!54 &494380590
 Rigidbody:
   m_ObjectHideFlags: 0
