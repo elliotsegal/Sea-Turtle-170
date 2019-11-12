@@ -26,8 +26,13 @@ public class PlayerController : MonoBehaviour
 		tf.localEulerAngles = new Vector3(0, tf.localEulerAngles.y, tf.localEulerAngles.z);
 
 		float torque = Input.GetAxis("Horizontal");
+		//Debug.Log(torque);
+		tf.RotateAround(tf.position, tf.up, torque*2f); // Turn around the world's vertical axis
+		tf.RotateAround(tf.position, Vector3.forward, torque/2f); // Bank into the turns. Needs bounds checking!
+
+		/*
 		if(torque == 0){ // stop turning if nothing is being pressed
-			rb.AddTorque(new Vector3(0, -rb.angularVelocity.y*0.85f, 0));
+			//rb.AddTorque(new Vector3(0, -rb.angularVelocity.y*0.85f, 0));
 
 			// // Return to flat. Should really be in its own "if left/right aren't being pressed" block but here is ok
 			// if(Mathf.Abs(tf.localEulerAngles.z) < 0.5f){
@@ -40,9 +45,10 @@ public class PlayerController : MonoBehaviour
 
 		}
 		else if(Mathf.Abs(rb.angularVelocity.y + torque) < maxTorqueY){ // turn if left/right is being pressed
-			rb.AddTorque(new Vector3(0, Mathf.Min(torque*2f, maxTorqueY-torque*2f), 0));
+			//rb.AddTorque(new Vector3(0, Mathf.Min(torque*2f, maxTorqueY-torque*2f), 0));
+			tf.RotateAround(tf.position, Vector3.up, torque*2f);
 
-			// tf.RotateAround(tf.position, Vector3.forward, torque/2f); // another attempt at banking. Needs bounds checking!
+			tf.RotateAround(tf.position, Vector3.forward, torque/2f); // another attempt at banking. Needs bounds checking!
 
 			// // Make it bank visually
 			// if(Mathf.Abs(tf.localEulerAngles.z) < 30f){
@@ -51,6 +57,7 @@ public class PlayerController : MonoBehaviour
 			// }
 
 		}
+		*/
 
 		Vector3 movement = tf.forward * acceleration * Input.GetAxis("Vertical");
 		rb.velocity += movement * Time.deltaTime;
