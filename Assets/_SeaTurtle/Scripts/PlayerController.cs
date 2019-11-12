@@ -22,25 +22,30 @@ public class PlayerController : MonoBehaviour
 	void FixedUpdate(){
 		// At the start, X is forward, Z is to the side
 
+		// For now lock the x rotation to it stays flat
+		tf.localEulerAngles = new Vector3(0, tf.localEulerAngles.y, tf.localEulerAngles.z);
+
 		float torque = Input.GetAxis("Horizontal");
 		if(torque == 0){ // stop turning if nothing is being pressed
-			rb.AddTorque(new Vector3(0, -rb.angularVelocity.y/2));
+			rb.AddTorque(new Vector3(0, -rb.angularVelocity.y*0.85f, 0));
 
-			// // Return to flat
-			// if(Mathf.Abs(tf.localEulerAngles.z) < 1){
-			// 	tf.localEulerAngles = new Vector3(0, 0, 0); // idk why I can't just set z directly
+			// // Return to flat. Should really be in its own "if left/right aren't being pressed" block but here is ok
+			// if(Mathf.Abs(tf.localEulerAngles.z) < 0.5f){
+			// 	//tf.localEulerAngles = new Vector3(tf.localEulerAngles.x, tf.localEulerAngles.y, 0f); // idk why I can't just set z directly
+			// 	tf.Rotate(0, 0, tf.localEulerAngles.z > 0f ? -tf.localEulerAngles.z : tf.localEulerAngles.z);
 			// }
 			// else{
-			// 	tf.Rotate(0, 0, (tf.localEulerAngles.z > 0 ? -1 : 1));
+			// 	tf.Rotate(0, 0, (tf.localEulerAngles.z > 0f ? -1 : 1), Space.Self);
 			// }
 
 		}
-		else if(Mathf.Abs(rb.angularVelocity.y + torque) < maxTorqueY){ // turn
-			rb.AddTorque(new Vector3(0, Mathf.Min(torque, maxTorqueY-torque), 0));
+		else if(Mathf.Abs(rb.angularVelocity.y + torque) < maxTorqueY){ // turn if left/right is being pressed
+			rb.AddTorque(new Vector3(0, Mathf.Min(torque*2f, maxTorqueY-torque*2f), 0));
 
 			// // Make it bank visually
-			// if(Mathf.Abs(tf.rotation.z) < 30){ // I can't seem to get the "local" rotation!
-			// 	rb.AddTorque(new Vector3(0, 0, Mathf.Min(torque, maxTorqueZ-torque)));
+			// if(Mathf.Abs(tf.localEulerAngles.z) < 30f){
+			// 	tf.Rotate(0, 0, (torque > 0 ? torque/2f : -torque/2f), Space.Self);
+			// 	Debug.Log("Torque: " + torque);
 			// }
 
 		}
