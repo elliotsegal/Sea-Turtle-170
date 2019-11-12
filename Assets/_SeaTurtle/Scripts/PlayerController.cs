@@ -42,6 +42,8 @@ public class PlayerController : MonoBehaviour
 		else if(Mathf.Abs(rb.angularVelocity.y + torque) < maxTorqueY){ // turn if left/right is being pressed
 			rb.AddTorque(new Vector3(0, Mathf.Min(torque*2f, maxTorqueY-torque*2f), 0));
 
+			// tf.RotateAround(tf.position, Vector3.forward, torque/2f); // another attempt at banking. Needs bounds checking!
+
 			// // Make it bank visually
 			// if(Mathf.Abs(tf.localEulerAngles.z) < 30f){
 			// 	tf.Rotate(0, 0, (torque > 0 ? torque/2f : -torque/2f), Space.Self);
