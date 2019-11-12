@@ -398,6 +398,8 @@ MonoBehaviour:
   maxVelocity: 5
   maxTorqueY: 2
   maxTorqueZ: 1
+  rotateSpeed: 30
+  bankAmount: 20
 --- !u!54 &494380590
 Rigidbody:
   m_ObjectHideFlags: 0

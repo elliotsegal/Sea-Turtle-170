@@ -8,7 +8,11 @@ public class PlayerController : MonoBehaviour
 	public float maxVelocity = 10;
 	public float maxTorqueY = 2;
 	public float maxTorqueZ = 2;
-	private Rigidbody rb;
+    [Space]
+    public float rotateSpeed;
+    public float bankAmount;
+
+    private Rigidbody rb;
 	private Transform tf;
 
 	// Start is called before the first frame update
@@ -23,14 +27,15 @@ public class PlayerController : MonoBehaviour
 		// At the start, X is forward, Z is to the side
 
 		// For now lock the x rotation to it stays flat
-		tf.localEulerAngles = new Vector3(0, tf.localEulerAngles.y, tf.localEulerAngles.z);
+		//tf.localEulerAngles = new Vector3(0, tf.localEulerAngles.y, tf.localEulerAngles.z);
 
 		float torque = Input.GetAxis("Horizontal");
-		//Debug.Log(torque);
-		tf.RotateAround(tf.position, tf.up, torque*2f); // Turn around the world's vertical axis
-		tf.RotateAround(tf.position, Vector3.forward, torque/2f); // Bank into the turns. Needs bounds checking!
+        Vector3 angles = tf.localEulerAngles;
+        angles.y += torque * rotateSpeed * Time.fixedDeltaTime;
+        angles.z = -torque * bankAmount; // Bank based on how quickly we're turning
+        tf.localEulerAngles = angles;
 
-		/*
+        /*
 		if(torque == 0){ // stop turning if nothing is being pressed
 			//rb.AddTorque(new Vector3(0, -rb.angularVelocity.y*0.85f, 0));
 
@@ -59,7 +64,7 @@ public class PlayerController : MonoBehaviour
 		}
 		*/
 
-		Vector3 movement = tf.forward * acceleration * Input.GetAxis("Vertical");
+        Vector3 movement = tf.forward * acceleration * Input.GetAxis("Vertical");
 		rb.velocity += movement * Time.deltaTime;
 		rb.velocity = Vector3.ClampMagnitude(rb.velocity, maxVelocity);
 
