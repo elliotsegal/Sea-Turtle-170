@@ -6,10 +6,8 @@ public class PlayerController : MonoBehaviour
 {
 	public float acceleration;
 	public float maxVelocity = 10;
-	public float maxTorqueY = 2;
-	public float maxTorqueZ = 2;
     [Space]
-    public float rotateSpeed;
+    public float rotateSpeed = 90;
     public float bankAmount;
 
     private Rigidbody rb;
@@ -29,46 +27,25 @@ public class PlayerController : MonoBehaviour
 		// For now lock the x rotation to it stays flat
 		//tf.localEulerAngles = new Vector3(0, tf.localEulerAngles.y, tf.localEulerAngles.z);
 
-		float torque = Input.GetAxis("Horizontal");
+		float torque = Input.GetAxis("Horizontal"); // it should probably be called "inputLR" or something since it doesn't use AddTorque() anymore
         Vector3 angles = tf.localEulerAngles;
         angles.y += torque * rotateSpeed * Time.fixedDeltaTime;
-        angles.z = -torque * bankAmount; // Bank based on how quickly we're turning
+		if(Mathf.Abs((angles.z < 180 ? angles.z : -360+angles.z) - (-torque*bankAmount)) < 3){ // If our current "bank" is less than 3 degrees off what it would be if we started at rest
+			angles.z = -torque * bankAmount; // Bank based on how quickly we're turning
+		}
+		else{ // if the tutrle was turning one way and now needs to turn the other way
+			angles.z += 3*(torque > 0 ? -1 : 1); // The 3 is just to approximate how much it would usually turn per frame
+		}
         tf.localEulerAngles = angles;
 
-        /*
-		if(torque == 0){ // stop turning if nothing is being pressed
-			//rb.AddTorque(new Vector3(0, -rb.angularVelocity.y*0.85f, 0));
-
-			// // Return to flat. Should really be in its own "if left/right aren't being pressed" block but here is ok
-			// if(Mathf.Abs(tf.localEulerAngles.z) < 0.5f){
-			// 	//tf.localEulerAngles = new Vector3(tf.localEulerAngles.x, tf.localEulerAngles.y, 0f); // idk why I can't just set z directly
-			// 	tf.Rotate(0, 0, tf.localEulerAngles.z > 0f ? -tf.localEulerAngles.z : tf.localEulerAngles.z);
-			// }
-			// else{
-			// 	tf.Rotate(0, 0, (tf.localEulerAngles.z > 0f ? -1 : 1), Space.Self);
-			// }
-
-		}
-		else if(Mathf.Abs(rb.angularVelocity.y + torque) < maxTorqueY){ // turn if left/right is being pressed
-			//rb.AddTorque(new Vector3(0, Mathf.Min(torque*2f, maxTorqueY-torque*2f), 0));
-			tf.RotateAround(tf.position, Vector3.up, torque*2f);
-
-			tf.RotateAround(tf.position, Vector3.forward, torque/2f); // another attempt at banking. Needs bounds checking!
-
-			// // Make it bank visually
-			// if(Mathf.Abs(tf.localEulerAngles.z) < 30f){
-			// 	tf.Rotate(0, 0, (torque > 0 ? torque/2f : -torque/2f), Space.Self);
-			// 	Debug.Log("Torque: " + torque);
-			// }
-
-		}
-		*/
+		// add drag while turning to allow for sharper turns
+		rb.drag = Mathf.Abs(torque)/2f;
 
         Vector3 movement = tf.forward * acceleration * Input.GetAxis("Vertical");
-		rb.velocity += movement * Time.deltaTime;
+		rb.velocity += movement * Time.deltaTime * (1+Mathf.Abs(torque/10)); // the last bit is to offset drag while turning
 		rb.velocity = Vector3.ClampMagnitude(rb.velocity, maxVelocity);
 
-		// slow the player down to about minVelocity if they're not pressing forward
+		// slow the player to a stop if they're not pressing forward
 		if(Input.GetAxis("Vertical") == 0){
 			rb.velocity *= 0.97f;
 		}
