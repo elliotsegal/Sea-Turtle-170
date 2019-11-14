@@ -26,7 +26,7 @@ public class PlayerController : MonoBehaviour
 		float torque = Input.GetAxis("Horizontal"); // it should probably be called "inputLR" or something since it doesn't use AddTorque() anymore
 
         Vector3 angles = rb.rotation.eulerAngles;
-        angles.x += Input.GetAxis("Vertical") * rotateSpeed * Time.fixedDeltaTime;
+        angles.x -= Input.GetAxis("Vertical") * rotateSpeed * Time.fixedDeltaTime;
 		if(angles.x < 180 && angles.x > maxClimb) angles.x = maxClimb;
 		else if(angles.x > 180 && angles.x < 360-maxClimb) angles.x = 360-maxClimb;
 
