@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-	public float acceleration;
-	public float maxVelocity = 10;
+	public float acceleration = 4;
+	public float maxVelocity = 6;
+	public float maxClimb = 45;
     [Space]
-    public float rotateSpeed = 90;
+    public float rotateSpeed = 60;
     public float bankAmount;
 
     private Rigidbody rb;
@@ -22,14 +23,15 @@ public class PlayerController : MonoBehaviour
 
 	// called just before performing any Physics operations
 	void FixedUpdate(){
-		// At the start, X is forward, Z is to the side
-
-		// For now lock the x rotation to it stays flat
-		//tf.localEulerAngles = new Vector3(0, tf.localEulerAngles.y, tf.localEulerAngles.z);
-
 		float torque = Input.GetAxis("Horizontal"); // it should probably be called "inputLR" or something since it doesn't use AddTorque() anymore
+
         Vector3 angles = tf.localEulerAngles;
+		angles.x += Input.GetAxis("Vertical") * rotateSpeed * Time.fixedDeltaTime;
+		if(angles.x < 180 && angles.x > maxClimb) angles.x = maxClimb;
+		else if(angles.x > 180 && angles.x < 360-maxClimb) angles.x = 360-maxClimb;
+
         angles.y += torque * rotateSpeed * Time.fixedDeltaTime;
+
 		if(Mathf.Abs((angles.z < 180 ? angles.z : -360+angles.z) - (-torque*bankAmount)) < 3){ // If our current "bank" is less than 3 degrees off what it would be if we started at rest
 			angles.z = -torque * bankAmount; // Bank based on how quickly we're turning
 		}
@@ -38,15 +40,17 @@ public class PlayerController : MonoBehaviour
 		}
         tf.localEulerAngles = angles;
 
-		// add drag while turning to allow for sharper turns
-		rb.drag = Mathf.Abs(torque)/2f;
+		bool throttle = Input.GetKey("space");
 
-        Vector3 movement = tf.forward * acceleration * Input.GetAxis("Vertical");
-		rb.velocity += movement * Time.deltaTime * (1+Mathf.Abs(torque/10)); // the last bit is to offset drag while turning
+		// add drag while turning to allow for sharper turns
+		rb.drag = (throttle ? Mathf.Abs(torque) : 0);
+
+        Vector3 movement = tf.forward * acceleration * (throttle ? 1 : 0);
+		rb.velocity += movement * Time.deltaTime * (1+Mathf.Abs(torque/2)); // the last bit is to offset drag while turning
 		rb.velocity = Vector3.ClampMagnitude(rb.velocity, maxVelocity);
 
 		// slow the player to a stop if they're not pressing forward
-		if(Input.GetAxis("Vertical") == 0){
+		if(!throttle){
 			rb.velocity *= 0.97f;
 		}
 	}

@@ -395,10 +395,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   acceleration: 4
-  maxVelocity: 5
-  maxTorqueY: 2
-  maxTorqueZ: 1
-  rotateSpeed: 30
+  maxVelocity: 6
+  maxClimb: 45
+  rotateSpeed: 60
   bankAmount: 20
 --- !u!54 &494380590
 Rigidbody:
