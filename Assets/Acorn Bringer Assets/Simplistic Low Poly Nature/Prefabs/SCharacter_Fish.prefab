@@ -229,6 +229,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4036406035427534}
   - component: {fileID: 95403825570734714}
+  - component: {fileID: 482947099409798714}
+  - component: {fileID: 5935516646877329155}
   m_Layer: 0
   m_Name: SCharacter_Fish
   m_TagString: Untagged
@@ -271,6 +273,32 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!65 &482947099409798714
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1336688621205060}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 2}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &5935516646877329155
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1336688621205060}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1315ef947b4897f4383bb77eae61eed0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eatFX: {fileID: 6561686239828042999, guid: 3e2e0c1c42236c0438244842a1de11e1, type: 3}
 --- !u!1 &1442716365703532
 GameObject:
   m_ObjectHideFlags: 0

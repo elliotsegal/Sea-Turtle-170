@@ -2,8 +2,11 @@
 
 public class LevelEndTrigger : MonoBehaviour
 {
-    void OnTriggerEnter()
+    private void OnTriggerEnter(Collider collider)
     {
-        GameManager.singleton.EndLevel(true);
+        if (collider.GetComponent<PlayerController>() == GameManager.singleton.player)
+        {
+            GameManager.singleton.EndLevel(true);
+        }
     }
 }

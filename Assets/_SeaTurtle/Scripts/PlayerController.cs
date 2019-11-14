@@ -25,8 +25,8 @@ public class PlayerController : MonoBehaviour
 	void FixedUpdate(){
 		float torque = Input.GetAxis("Horizontal"); // it should probably be called "inputLR" or something since it doesn't use AddTorque() anymore
 
-        Vector3 angles = tf.localEulerAngles;
-		angles.x += Input.GetAxis("Vertical") * rotateSpeed * Time.fixedDeltaTime;
+        Vector3 angles = rb.rotation.eulerAngles;
+        angles.x += Input.GetAxis("Vertical") * rotateSpeed * Time.fixedDeltaTime;
 		if(angles.x < 180 && angles.x > maxClimb) angles.x = maxClimb;
 		else if(angles.x > 180 && angles.x < 360-maxClimb) angles.x = 360-maxClimb;
 
@@ -38,9 +38,9 @@ public class PlayerController : MonoBehaviour
 		else{ // if the tutrle was turning one way and now needs to turn the other way
 			angles.z += 3*(torque > 0 ? -1 : 1); // The 3 is just to approximate how much it would usually turn per frame
 		}
-        tf.localEulerAngles = angles;
+        rb.MoveRotation(Quaternion.Euler(angles));
 
-		bool throttle = Input.GetKey("space");
+        bool throttle = Input.GetKey("space");
 
 		// add drag while turning to allow for sharper turns
 		rb.drag = (throttle ? Mathf.Abs(torque) : 0);
@@ -63,4 +63,9 @@ public class PlayerController : MonoBehaviour
 		}
 	}
 	*/
+
+	public void OnFoodEaten()
+	{
+        Debug.Log("eat");
+    }
 }

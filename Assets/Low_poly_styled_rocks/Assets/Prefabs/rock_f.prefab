@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 496350}
   - component: {fileID: 3371978}
   - component: {fileID: 2392414}
-  - component: {fileID: 6594526}
+  - component: {fileID: -1838798046903504915}
   m_Layer: 0
   m_Name: rock_f
   m_TagString: Untagged
@@ -79,8 +79,8 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &6594526
-BoxCollider:
+--- !u!64 &-1838798046903504915
+MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -89,6 +89,7 @@ BoxCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.891011, y: 1.071393, z: 0.816171}
-  m_Center: {x: -0.009281501, y: 0.33569652, z: 0.044110507}
+  serializedVersion: 3
+  m_Convex: 1
+  m_CookingOptions: 14
+  m_Mesh: {fileID: 4300000, guid: 18825f1b116444645925daec351e81ba, type: 3}
