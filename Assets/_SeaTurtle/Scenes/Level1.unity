@@ -6340,7 +6340,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   acceleration: 4
-  maxVelocity: 5
+  maxVelocity: 8
   maxClimb: 75
   rotateSpeed: 60
   bankAmount: 0

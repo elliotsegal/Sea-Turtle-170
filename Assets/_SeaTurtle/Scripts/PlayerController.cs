@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class PlayerController : MonoBehaviour
 {
 	public float acceleration = 4;
-	public float maxVelocity = 6;
+	public float maxVelocity = 8;
 	public float maxClimb = 75;
     [Space]
     public float rotateSpeed = 60;
