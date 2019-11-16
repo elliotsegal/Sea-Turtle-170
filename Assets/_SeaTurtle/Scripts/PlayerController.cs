@@ -74,5 +74,7 @@ public class PlayerController : MonoBehaviour
 	{
         fishCollected++;
 		UpdateText();
+		HealthBar hp = GameObject.FindGameObjectWithTag("Player").GetComponent<HealthBar>();
+		hp.HealDamage(5);
     }
 }
