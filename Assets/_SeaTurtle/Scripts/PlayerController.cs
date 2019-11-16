@@ -14,6 +14,9 @@ public class PlayerController : MonoBehaviour
 
 	private int fishCollected;
 	public Text countText, winText;
+	public Image currentHealthBar;
+	private float healthPoint = 100;
+    private float maxHealthPoint = 100;
 
     private Rigidbody rb;
 	private Transform tf;
@@ -27,6 +30,7 @@ public class PlayerController : MonoBehaviour
 		fishCollected = 0;
 		UpdateText();
 		winText.text = "";
+		UpdateHealthBar();
 	}
 
 	// called just before performing any Physics operations
@@ -70,11 +74,35 @@ public class PlayerController : MonoBehaviour
 		}
 	}
 
+	void UpdateHealthBar()
+    {
+        float ratio = healthPoint/maxHealthPoint;
+        currentHealthBar.rectTransform.localScale = new Vector3(ratio, 1, 1);
+    }
+
+    void TakeDamage(float damage)
+    {
+    	healthPoint -= damage;
+    	if (healthPoint < 0)
+    	{
+    		healthPoint = 0;
+    		Debug.Log("Dead!");
+    	}
+    	UpdateHealthBar();
+    }
+    
+    void HealDamage(float damage)
+    {
+    	healthPoint += damage;
+    	// if (healthPoint > maxHealthPoint)
+    	// 	healthPoint = maxHealthPoint;
+    	UpdateHealthBar();    	
+    }
+
 	public void OnFoodEaten()
 	{
         fishCollected++;
 		UpdateText();
-		HealthBar hp = GameObject.FindGameObjectWithTag("Player").GetComponent<HealthBar>();
-		hp.HealDamage(5);
+		HealDamage(5);
     }
 }
