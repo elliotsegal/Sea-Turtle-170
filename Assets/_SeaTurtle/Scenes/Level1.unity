@@ -6347,6 +6347,7 @@ MonoBehaviour:
   bankAmount: 0
   countText: {fileID: 1151632651}
   winText: {fileID: 1435856887}
+  currentHealthBar: {fileID: 942715420}
 --- !u!54 &356290538
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -17984,7 +17985,7 @@ GameObject:
   - component: {fileID: 942715421}
   - component: {fileID: 942715420}
   m_Layer: 5
-  m_Name: Image
+  m_Name: HealthBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
