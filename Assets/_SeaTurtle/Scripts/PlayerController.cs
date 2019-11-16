@@ -1,15 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
 	public float acceleration = 4;
 	public float maxVelocity = 6;
-	public float maxClimb = 45;
+	public float maxClimb = 75;
     [Space]
     public float rotateSpeed = 60;
     public float bankAmount;
+
+	private int fishCollected;
+	public Text countText, winText;
 
     private Rigidbody rb;
 	private Transform tf;
@@ -19,6 +23,10 @@ public class PlayerController : MonoBehaviour
 	{
 		rb = GetComponent<Rigidbody>();
 		tf = GetComponent<Transform>();
+
+		fishCollected = 0;
+		UpdateText();
+		winText.text = "";
 	}
 
 	// called just before performing any Physics operations
@@ -55,17 +63,16 @@ public class PlayerController : MonoBehaviour
 		}
 	}
 
-	// We'll use this function to allow the player to eat & such
-	/* we'll use
-	void OnTriggerEnter(Collider other){
-		if(other.gameObject.CompareTag("Pick Up")){
-			other.gameObject.SetActive(false);
+	void UpdateText(){
+		countText.text = "Fish collected: " + fishCollected.ToString();
+		if(fishCollected >= 6){
+			winText.text = "You win!";
 		}
 	}
-	*/
 
 	public void OnFoodEaten()
 	{
-        Debug.Log("eat");
+        fishCollected++;
+		UpdateText();
     }
 }
