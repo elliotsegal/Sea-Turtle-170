@@ -11546,6 +11546,21 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -6402932590252298821, guid: 34589e1bb3eb12c4a88f5e951a248fa3,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.26959538
+      objectReference: {fileID: 0}
+    - target: {fileID: -6402932590252298821, guid: 34589e1bb3eb12c4a88f5e951a248fa3,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.094316944
+      objectReference: {fileID: 0}
+    - target: {fileID: -6402932590252298821, guid: 34589e1bb3eb12c4a88f5e951a248fa3,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: -6057140222963153312, guid: 34589e1bb3eb12c4a88f5e951a248fa3,
         type: 3}
       propertyPath: m_Controller
@@ -11624,22 +11639,22 @@ PrefabInstance:
     - target: {fileID: -444521105353760620, guid: 34589e1bb3eb12c4a88f5e951a248fa3,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 0.002538316
       objectReference: {fileID: 0}
     - target: {fileID: -444521105353760620, guid: 34589e1bb3eb12c4a88f5e951a248fa3,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.8766234
       objectReference: {fileID: 0}
     - target: {fileID: -444521105353760620, guid: 34589e1bb3eb12c4a88f5e951a248fa3,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -0.6544833
       objectReference: {fileID: 0}
     - target: {fileID: -444521105353760620, guid: 34589e1bb3eb12c4a88f5e951a248fa3,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 100
+      value: 128.32698
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 34589e1bb3eb12c4a88f5e951a248fa3, type: 3}
@@ -41279,6 +41294,7 @@ GameObject:
   - component: {fileID: 2074693788}
   - component: {fileID: 2074693790}
   - component: {fileID: 2074693789}
+  - component: {fileID: 2074693791}
   m_Layer: 5
   m_Name: LevelComplete
   m_TagString: Untagged
@@ -41320,7 +41336,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -41343,6 +41359,25 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2074693787}
   m_CullTransparentMesh: 0
+--- !u!95 &2074693791
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2074693787}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: f18b799aaca81f143bb0d7044f5bffe1, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1001 &2079320651
 PrefabInstance:
   m_ObjectHideFlags: 0
