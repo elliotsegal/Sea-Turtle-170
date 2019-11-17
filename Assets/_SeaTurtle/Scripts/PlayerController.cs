@@ -65,6 +65,8 @@ public class PlayerController : MonoBehaviour
 		if(!throttle){
 			rb.velocity *= 0.97f;
 		}
+
+		if(fishCollected < 6) TakeDamage(Time.fixedDeltaTime);
 	}
 
 	void UpdateText(){
