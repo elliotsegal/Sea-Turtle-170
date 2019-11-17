@@ -21,8 +21,11 @@ public class GameManager : MonoBehaviour
     {
         singleton = this;
         state = GameState.Playing;
+        completeLevelUI.SetActive(false);
     }
 
+    public GameObject completeLevelUI;
+    
     public void EndLevel(bool win)
     {
         if (state != GameState.Playing) return;
@@ -31,6 +34,7 @@ public class GameManager : MonoBehaviour
         Debug.Log(currentLevel + " ended " + (win ? "(win)" : "(loss)"));
         if (win)
         {
+            completeLevelUI.SetActive(true);
             state = GameState.LoadingNextLevel;
             //LoadLevel("NextLevel");
         }
@@ -38,6 +42,7 @@ public class GameManager : MonoBehaviour
         {
             state = GameState.RestartingLevel;
             LoadLevel(currentLevel);
+         
         }
     }
 
