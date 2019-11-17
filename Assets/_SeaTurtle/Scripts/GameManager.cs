@@ -22,9 +22,12 @@ public class GameManager : MonoBehaviour
         singleton = this;
         state = GameState.Playing;
         completeLevelUI.SetActive(false);
+        diedUI.SetActive(false);
     }
 
     public GameObject completeLevelUI;
+    public GameObject diedUI;
+
     
     public void EndLevel(bool win)
     {
@@ -44,6 +47,19 @@ public class GameManager : MonoBehaviour
             LoadLevel(currentLevel);
          
         }
+    }
+    
+    public void Restart()
+    {
+        Debug.Log("Lssslevel " + name);
+        SceneManager.LoadScene("Level1");
+    }
+
+    public void Died()
+    {
+        diedUI.SetActive(true);
+        state = GameState.LoadingNextLevel;
+
     }
 
     private IEnumerable LoadLevel(string name)

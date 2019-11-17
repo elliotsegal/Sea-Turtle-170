@@ -71,9 +71,9 @@ public class PlayerController : MonoBehaviour
 
 	void UpdateText(){
 		countText.text = "Fish collected: " + fishCollected.ToString();
-		if(fishCollected >= 6){
-			winText.text = "You win!";
-		}
+		if(fishCollected >= 5){
+            GameManager.singleton.EndLevel(true);
+        }
 	}
 
 	void UpdateHealthBar()
@@ -88,7 +88,7 @@ public class PlayerController : MonoBehaviour
     	if (healthPoint < 0)
     	{
     		healthPoint = 0;
-    		Debug.Log("Dead!");
+    		GameManager.singleton.Died();
     	}
     	UpdateHealthBar();
     }
